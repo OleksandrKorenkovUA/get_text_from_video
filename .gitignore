@@ -1,0 +1,29 @@
+# Virtual Environment
+.venv/
+venv/
+ENV/
+__pycache__/
+
+# Large files
+*.pth
+*.pt
+*.bin
+*.model
+*.tar.gz
+models/
+weights/
+
+# Media
+*.mp3
+*.wav
+*.mp4
+*.avi
+*.mkv
+
+# IDE
+.idea/
+.vscode/
+
+# OS
+.DS_Store
+Thumbs.db
