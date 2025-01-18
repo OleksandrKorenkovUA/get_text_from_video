@@ -51,8 +51,7 @@
 
 ## Використання додатку
 Встановіть залежності 
- ```pip install -r requirements.txt
- ```
+ ```pip install -r requirements.txt```
 
 ### Запуск програми
 1. Запустіть програму командою:
