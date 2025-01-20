@@ -45,11 +45,13 @@
 ### Інструкція зі встановлення додатку
 1. Клонуйте репозиторій:
    ```bash
-   git clone https://github.com/your_username/your_repository_name.git
-   cd your_repository_name
+   git clone https://github.com/OleksandrKorenkovUA/get_text_from_video
+   cd get_text_from_video
    ```
 
 ## Використання додатку
+Встановіть залежності 
+ ```pip install -r requirements.txt```
 
 ### Запуск програми
 1. Запустіть програму командою:
