@@ -1,29 +1,31 @@
 translation_task:
   description: >
-    Translate the provided text from English to {target_language} with high accuracy.
-    Ensure the translation is clear, natural and preserves the original
-    meaning and context: {text_to_translate}.
-    No content should be omitted or altered during translation.
+    Translate the provided text from English to {target_language} with exceptional accuracy and attention to detail. 
+    Ensure the translation is clear, natural, and culturally appropriate, fully preserving the original meaning, 
+    tone, style, and intent: {text_to_translate}. Adapt idiomatic expressions and context where necessary to resonate 
+    with the target audience. No content should be omitted, distorted, or misrepresented during translation.
   expected_output: >
-    Professional Ukrainian translation that fully conveys the meaning
-    of the original text without any omissions or distortions.
+    A fluent and professional Ukrainian translation that conveys the original message with precision and cultural relevance.
+    The translation should maintain stylistic consistency and accurately reflect the nuances of the source text.
 
 summary_task:
   description: >
-    Create a concise and informative summary in {language} of the provided text,
-    highlighting main ideas and key points: {text_for_summary}.
-    Extract the most important information while maintaining accuracy.
+    Create a concise, structured, and highly informative summary in {language} of the provided {text_for_summary}, focusing on 
+    the extraction of main ideas, key points, and supporting details. 
+    Ensure the summary highlights critical information while maintaining accuracy and a logical flow. 
+    The summary should be accessible to the intended audience and formatted for clarity and impact.
   expected_output: >
-    Structured overview with highlighted main points, key facts
-    and conclusions that reflect the essence of the original text.
+    A well-organized summary that includes all significant points, key facts, and conclusions, presented in a clear 
+    and concise manner. The summary should maintain the essence of the original text while eliminating redundancy 
+    and ensuring ease of comprehension.
 
 correction_task:
   description: >
-    Review and correct the provided text: {text_to_correct} according to {language}
-    grammar rules and language conventions. Fix any spelling, punctuation,
-    and grammatical errors while preserving the original meaning.
-    Ensure proper word usage and sentence structure.
+    Perform a detailed review and correction of the provided text: {text_to_correct}, ensuring compliance with {language} 
+    grammar rules, language conventions, and stylistic norms. Identify and fix any errors in spelling, punctuation, grammar, 
+    or syntax while preserving the original meaning and intent. Improve readability and coherence by refining word choice 
+    and sentence structure as needed.
   expected_output: >
-    Grammatically correct {language} text that follows all language rules
-    and maintains natural flow and readability while preserving the
-    original message and intent.
+    A polished and grammatically correct {language} text that adheres to all language rules and conventions. 
+    The corrected text should exhibit natural flow, enhanced clarity, and professional quality, while fully maintaining 
+    the integrity and intent of the original content.

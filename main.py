@@ -8,9 +8,6 @@ import requests
 from bs4 import BeautifulSoup
 
 
-
-
-
 def clean_filename(filename):
     cleaned = re.sub(r'[\\/*?:"<>|#]', "", filename)
     cleaned = re.sub(r'\s+', "_", cleaned)
@@ -157,7 +154,7 @@ def process_youtube_video(url: str) -> None:
         # Download and convert video
         ydl_opts = {
             'format': 'bestvideo+bestaudio',
-            'outtmpl': f'get_text_from_video/{title}.mp4',
+            'outtmpl': f'video/{title}.mp4',
             'postprocessors': [
                 {'key': 'FFmpegVideoConvertor', 'preferedformat': 'mp4'}
             ],
@@ -169,7 +166,7 @@ def process_youtube_video(url: str) -> None:
         
         # Process the final output
         model = whisper.load_model("base")
-        file_path = f'get_text_from_video/{title}.mp4'
+        file_path = f'video/{title}.mp4'
         if not os.path.exists(file_path):
             raise FileNotFoundError(f"Файл {file_path} не знайдено")
         

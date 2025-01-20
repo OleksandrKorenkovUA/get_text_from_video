@@ -7,7 +7,7 @@ os.environ["OTEL_SDK_DISABLED"] = "true"
 
 
 llm = LLM(
-    model="llama3.2:3b",
+    model="ollama/phi4",
     base_url="http://localhost:11434"
 )
 
