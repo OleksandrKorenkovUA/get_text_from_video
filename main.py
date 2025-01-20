@@ -4,6 +4,12 @@ import os
 import re
 from crews import TranslationCrew, SummarizationCrew, CorrectionCrew
 from typing import Optional
+import requests
+from bs4 import BeautifulSoup
+
+
+
+
 
 def clean_filename(filename):
     cleaned = re.sub(r'[\\/*?:"<>|#]', "", filename)
@@ -142,68 +148,39 @@ def process_local_file(file_path: str) -> Optional[str]:
         return None
 
 def process_youtube_video(url: str) -> None:
-    url = url.strip("'\"")
-    print("\nВажлива інформація!")
-    print("Для завантаження відео з YouTube потрібен доступ до ваших cookies з браузера Chrome.")
-    print("Це необхідно для доступу до відео з обмеженим доступом або вікових обмежень.")
-    print("Cookies будуть використані тільки для автентифікації з YouTube.\n")
-
-    agreement = input("Ви згодні надати доступ до cookies? (так/ні): ").lower()
-    
-    if agreement != 'так':
-        print("\nВи відмовились від надання доступу до cookies.")
-        print("Бажаєте обробити локальний аудіо/відео файл замість цього?")
-        choice = input("Введіть шлях до локального файлу або 'ні' для виходу: ")
-        if choice.lower() != 'ні':
-            process_local_file(choice)
-        return
-        
     try:
-        ydl_opts = {
-            'format': 'bestaudio/best',
-            'postprocessors': [{
-                'key': 'FFmpegExtractAudio',
-                'preferredcodec': 'mp3',
-            }],
-            'cookiesfrombrowser': ('chrome',),
-            'outtmpl': '%(title)s.%(ext)s',
-            'restrictfilenames': True,
-            'windowsfilenames': True
-        }
+        # Extract video metadata and clean title
+        with yt_dlp.YoutubeDL({'quiet': True}) as ydl:
+            info = ydl.extract_info(url, download=False)
+            title = clean_filename(info.get("title", "video"))
         
+        # Download and convert video
+        ydl_opts = {
+            'format': 'bestvideo+bestaudio',
+            'outtmpl': f'get_text_from_video/{title}.mp4',
+            'postprocessors': [
+                {'key': 'FFmpegVideoConvertor', 'preferedformat': 'mp4'}
+            ],
+            'merge_output_format': 'mp4',
+            'keepvideo': False
+        }
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
-            print("Завантаження аудіо починається...")
-            info = ydl.extract_info(url, download=True)
-            
-            audio_file = None
-            if 'requested_downloads' in info:
-                for d in info['requested_downloads']:
-                    if d['ext'] == 'mp3':
-                        audio_file = d['filepath']
-                        break
-            
-            if audio_file is None:
-                clean_title = clean_filename(info['title'])
-                audio_file = f"{clean_title}.mp3"
-            
-            if not os.path.exists(audio_file):
-                print(f"Помилка: Файл {audio_file} не знайдено")
-                return
-                
-            print(f"Назва: {info['title']}")
-            print(f"Шлях до файлу: {audio_file}")
-            
-            try:
-                model = whisper.load_model("base")
-                result = model.transcribe(audio_file)
-                text = result["text"]
-                process_text(text)
-            finally:
-                if os.path.exists(audio_file):
-                    os.remove(audio_file)
-                    
+            ydl.download([url])
+        
+        # Process the final output
+        model = whisper.load_model("base")
+        file_path = f'get_text_from_video/{title}.mp4'
+        if not os.path.exists(file_path):
+            raise FileNotFoundError(f"Файл {file_path} не знайдено")
+        
+        # Transcribe using Whisper
+        result = model.transcribe(file_path)
+        text = result["text"]
+        process_text(text)
+    
     except Exception as e:
         print(f"Сталася помилка: {str(e)}")
+
 
 def run():
     print("Оберіть джерело для завантаження:")
