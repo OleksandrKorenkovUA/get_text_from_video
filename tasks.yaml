@@ -1,0 +1,29 @@
+translation_task:
+  description: >
+    Translate the provided text from English to {target_language} with high accuracy.
+    Ensure the translation is clear, natural and preserves the original
+    meaning and context: {text_to_translate}.
+    No content should be omitted or altered during translation.
+  expected_output: >
+    Professional Ukrainian translation that fully conveys the meaning
+    of the original text without any omissions or distortions.
+
+summary_task:
+  description: >
+    Create a concise and informative summary in {language} of the provided text,
+    highlighting main ideas and key points: {text_for_summary}.
+    Extract the most important information while maintaining accuracy.
+  expected_output: >
+    Structured overview with highlighted main points, key facts
+    and conclusions that reflect the essence of the original text.
+
+correction_task:
+  description: >
+    Review and correct the provided text: {text_to_correct} according to {language}
+    grammar rules and language conventions. Fix any spelling, punctuation,
+    and grammatical errors while preserving the original meaning.
+    Ensure proper word usage and sentence structure.
+  expected_output: >
+    Grammatically correct {language} text that follows all language rules
+    and maintains natural flow and readability while preserving the
+    original message and intent.
