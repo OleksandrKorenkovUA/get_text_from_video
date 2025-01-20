@@ -14,9 +14,11 @@ regex>=2023.0.0
 transformers>=4.30.0
 sentencepiece>=0.1.99
 
-# Взаємодія з API
+# Взаємодія з API та парсинг
 requests>=2.31.0
 aiohttp>=3.8.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
 
 # Утиліти
 tqdm>=4.65.0
