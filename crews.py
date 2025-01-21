@@ -10,7 +10,7 @@ load_dotenv()
 print(os.getenv("OPENAI_API_KEY"))
 
 
-#Для використання безкоштовних opensourse моделей з ollama 
+#Для використання безкоштовних opensource моделей з ollama 
 llm = LLM(
     model="ollama/llama3.1:latest",
     base_url="http://localhost:11434"
