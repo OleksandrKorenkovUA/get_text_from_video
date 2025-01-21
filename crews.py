@@ -4,22 +4,28 @@ from pydantic import BaseModel, Field
 from crewai.llm import LLM
 import os
 os.environ["OTEL_SDK_DISABLED"] = "true"
+from dotenv import load_dotenv
+
+load_dotenv()
+print(os.getenv("OPENAI_API_KEY"))
 
 
+#Для використання безкоштовних opensourse моделей з ollama 
 llm = LLM(
-    model="ollama/phi4",
+    model="ollama/llama3.1:latest",
     base_url="http://localhost:11434"
 )
 
+#Для використання OpenAI API 
+'''llm = LLM(model="gpt-4")'''
 
 class Texted(BaseModel):
-    """Description of the text"""
-    body: str = Field(..., description="Body of the text")
+    body: str = Field(..., description="Текст")
 
 
 @CrewBase
 class TranslationCrew():
-    """Translation crew"""
+    """Команда для перекладу"""
     agents_config = 'agents.yaml'
     tasks_config = 'tasks.yaml'
     
@@ -42,7 +48,6 @@ class TranslationCrew():
 
     @crew
     def crew(self) -> Crew:
-        """Creates the Translation crew"""
         return Crew(
             agents=[self.translator()],
             tasks=[self.translation_task()],
@@ -52,7 +57,7 @@ class TranslationCrew():
 
 @CrewBase
 class SummarizationCrew():
-    """Summarization crew"""
+    """Команда для аналізу"""
     agents_config = 'agents.yaml'
     tasks_config = 'tasks.yaml'
     
@@ -75,7 +80,6 @@ class SummarizationCrew():
 
     @crew
     def crew(self) -> Crew:
-        """Creates the Summarization crew"""
         return Crew(
             agents=[self.analyst()],
             tasks=[self.summary_task()],
@@ -85,7 +89,7 @@ class SummarizationCrew():
 
 @CrewBase
 class CorrectionCrew():
-    """Correction crew"""
+    """Команда для виправлення тексту"""
     agents_config = 'agents.yaml'
     tasks_config = 'tasks.yaml'
     
@@ -108,7 +112,6 @@ class CorrectionCrew():
 
     @crew
     def crew(self) -> Crew:
-        """Creates the Correction crew"""
         return Crew(
             agents=[self.corrector()],
             tasks=[self.correction_task()],

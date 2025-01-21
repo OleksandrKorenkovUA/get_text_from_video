@@ -1,9 +1,8 @@
 translation_task:
   description: >
     Translate the provided text from English to {target_language} with exceptional accuracy and attention to detail. 
-    Ensure the translation is clear, natural, and culturally appropriate, fully preserving the original meaning, 
-    tone, style, and intent: {text_to_translate}. Adapt idiomatic expressions and context where necessary to resonate 
-    with the target audience. No content should be omitted, distorted, or misrepresented during translation.
+    Ensure the translation of {text_to_translate} is clear, natural, and culturally appropriate, fully preserving the original meaning, 
+    tone, style, and intent. No content should be omitted, distorted, or misrepresented during translation.
   expected_output: >
     A fluent and professional Ukrainian translation that conveys the original message with precision and cultural relevance.
     The translation should maintain stylistic consistency and accurately reflect the nuances of the source text.
@@ -15,13 +14,14 @@ summary_task:
     Ensure the summary highlights critical information while maintaining accuracy and a logical flow. 
     The summary should be accessible to the intended audience and formatted for clarity and impact.
   expected_output: >
-    A well-organized summary that includes all significant points, key facts, and conclusions, presented in a clear 
-    and concise manner. The summary should maintain the essence of the original text while eliminating redundancy 
-    and ensuring ease of comprehension.
+    A well-organized summary that includes key facts, presented in a clear 
+    and concise manner. The summary should maintain the short essence of the original text while eliminating redundancy 
+    and ensuring ease of comprehension. The summary starts from 'This text is about ...' and then step by step presented the key points of text. Don't copy the same text as result. The summary has to be shorter and laconized in a short sentence.
+
 
 correction_task:
   description: >
-    Perform a detailed review and correction of the provided text: {text_to_correct}, ensuring compliance with {language} 
+    Perform a detailed review and correction of the provided {text_to_correct}, ensuring compliance with {language} 
     grammar rules, language conventions, and stylistic norms. Identify and fix any errors in spelling, punctuation, grammar, 
     or syntax while preserving the original meaning and intent. Improve readability and coherence by refining word choice 
     and sentence structure as needed.

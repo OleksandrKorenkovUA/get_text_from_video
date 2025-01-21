@@ -146,12 +146,10 @@ def process_local_file(file_path: str) -> Optional[str]:
 
 def process_youtube_video(url: str) -> None:
     try:
-        # Extract video metadata and clean title
         with yt_dlp.YoutubeDL({'quiet': True}) as ydl:
             info = ydl.extract_info(url, download=False)
             title = clean_filename(info.get("title", "video"))
         
-        # Download and convert video
         ydl_opts = {
             'format': 'bestvideo+bestaudio',
             'outtmpl': f'video/{title}.mp4',
@@ -164,20 +162,17 @@ def process_youtube_video(url: str) -> None:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             ydl.download([url])
         
-        # Process the final output
         model = whisper.load_model("base")
         file_path = f'video/{title}.mp4'
         if not os.path.exists(file_path):
             raise FileNotFoundError(f"Файл {file_path} не знайдено")
         
-        # Transcribe using Whisper
         result = model.transcribe(file_path)
         text = result["text"]
         process_text(text)
     
     except Exception as e:
         print(f"Сталася помилка: {str(e)}")
-
 
 def run():
     print("Оберіть джерело для завантаження:")
